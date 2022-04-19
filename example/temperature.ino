@@ -4,9 +4,9 @@
  * @LastEditors  : Leon
  * @LastEditTime : 2022-04-19 11:12:26
  * @Description  :
- * @FilePath     : \nst1001\src\temperature.ino
+ * @FilePath     : temperature.ino
  */
-#include <GDBStub.h>
+
 #include "ticker.h"
 #include "nst1001.h"
 #define DQ 7
@@ -28,7 +28,6 @@ void tick()
 void setup()
 {
   Serial.begin(115200);
-  gdbstub_init();
   pinMode(led, OUTPUT);
   ticker.attach(0.3, tick); 
   tempReadTimer.attach(tempReadInteval, readTemp);
