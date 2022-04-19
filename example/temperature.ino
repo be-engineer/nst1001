@@ -4,15 +4,14 @@
  * @LastEditors  : Leon
  * @LastEditTime : 2022-04-12 20:01:46
  * @Description  :
- * @FilePath     : \Refrigerator_temperature\src\Refrigerator_temperature.ino
+ * @FilePath     : 
  */
 #include "nst1001.h"
 #include <Ticker.h>
 
 #define DQ D7
-#define EN D6
 NST1001 nst1001(DQ);
-Ticker ticker; // wifi配置时的LED指示状态
+Ticker ticker; 
 Ticker tempReadTimer;
 bool readTempFlag = 0;
 uint8_t tempReadInteval = 3; //定义读温度的时间间隔
