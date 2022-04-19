@@ -124,7 +124,6 @@ float NST1001::readNst1001(uint16_t num)
     }
     sum = sum / (num - 2);
     float t = calculateTemp(sum);
-    Serial.printf("Temp:%5.2f\n", t);
     return t;
 }
 
