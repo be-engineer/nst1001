@@ -129,7 +129,7 @@ float NST1001::readNst1001(uint16_t num)
 
 /**
  * @brief 根据脉冲计数计算温度并分段进行补偿
- * @param {*}
+ * @param {uint32_t} pCount,读取的脉冲数
  * @return {float} 返回读取的温度值
  */
 float NST1001::calculateTemp(uint32_t pCount)
