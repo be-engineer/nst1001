@@ -1,40 +1,31 @@
 /*
  * @Author       : Leon Lee
- * @Date         : 2022-4-9 16:16:16
+ * @Date         : 2021-4-9 16:16:16
  * @LastEditors  : Leon
- * @LastEditTime : 2022-04-19 11:12:26
+ * @LastEditTime : 2022-04-12 20:01:46
  * @Description  :
- * @FilePath     : temperature.ino
+ * @FilePath     : \Refrigerator_temperature\src\Refrigerator_temperature.ino
  */
-
-#include "ticker.h"
 #include "nst1001.h"
-#define DQ 7
-NST1001 nst1001(DQ);
+#include <Ticker.h>
 
-//
-#define led D4 // gpio2,low active
-Ticker ticker; 
+#define DQ D7
+#define EN D6
+NST1001 nst1001(DQ);
+Ticker ticker; // wifi配置时的LED指示状态
 Ticker tempReadTimer;
 bool readTempFlag = 0;
-uint8_t tempReadInteval = 5; //定义读温度的时间间隔
-
-// toggle led state
-void tick()
-{
-  digitalWrite(led, !digitalRead(led)); // set pin to the opposite state
-}
+uint8_t tempReadInteval = 3; //定义读温度的时间间隔
+float tempC = 0;
 
 void setup()
 {
   Serial.begin(115200);
-  pinMode(led, OUTPUT);
-  ticker.attach(0.3, tick); 
   tempReadTimer.attach(tempReadInteval, readTemp);
 }
 
 /**
- * @brief 每隔一定时间读取一次温度
+ * @brief 每隔一定时间读取一次温度,不能在这里读取温度,否则会导致反复重启
  * @param {*}
  * @return {*}
  */
@@ -45,11 +36,10 @@ void IRAM_ATTR readTemp()
 
 void loop()
 {
-  float tempC = 0;
   if (readTempFlag)
   {
-    readTempFlag = 0;
-    tempC = nst1001.readNst1001();
+    readTempFlag = 0; //避免重复读取温度
+    tempC = nst1001.readNst1001(3);
     Serial.printf("Temp:%5.2f\n", tempC);
   }
 }
