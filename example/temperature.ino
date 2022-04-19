@@ -14,7 +14,7 @@ NST1001 nst1001(DQ);
 
 //
 #define led D4 // gpio2,low active
-Ticker ticker; // wifi配置时的LED指示状态
+Ticker ticker; 
 Ticker tempReadTimer;
 bool readTempFlag = 0;
 uint8_t tempReadInteval = 5; //定义读温度的时间间隔
@@ -30,7 +30,7 @@ void setup()
   Serial.begin(115200);
   gdbstub_init();
   pinMode(led, OUTPUT);
-  ticker.attach(0.3, tick); //闪烁led直到连接到AP
+  ticker.attach(0.3, tick); 
   tempReadTimer.attach(tempReadInteval, readTemp);
 }
 
